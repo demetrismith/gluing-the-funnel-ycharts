@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>YCharts GTM Evaluation</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Sora:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0e1a;
+    --surface: #111827;
+    --surface2: #1a2235;
+    --border: #1e2d45;
+    --accent: #3b82f6;
+    --accent2: #10b981;
+    --accent3: #f59e0b;
+    --red: #ef4444;
+    --purple: #a78bfa;
+    --text: #e2e8f0;
+    --muted: #64748b;
+    --mono: 'DM Mono', monospace;
+    --sans: 'Sora', sans-serif;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: var(--sans); font-size: 14px; line-height: 1.6; padding: 24px; max-width: 980px; margin: 0 auto; }
+  header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 20px; padding-bottom: 18px; border-bottom: 1px solid var(--border); }
+  .header-left h1 { font-size: 22px; font-weight: 700; letter-spacing: -0.5px; color: #fff; }
+  .header-left p { color: var(--muted); font-size: 12px; font-family: var(--mono); margin-top: 4px; }
+  .badge { background: var(--accent); color: #fff; font-family: var(--mono); font-size: 11px; padding: 4px 10px; border-radius: 4px; }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 18px; margin-bottom: 14px; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+  .card-title-row { display: flex; align-items: center; gap: 10px; }
+  .stage-num { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .card-title { font-size: 16px; font-weight: 700; color: #fff; }
+  .card-sub { font-size: 12px; color: var(--muted); font-style: italic; margin-top: 2px; }
+  .grade { font-family: var(--mono); font-size: 20px; font-weight: 700; padding: 4px 12px; border-radius: 6px; }
+  .grade-a { background: rgba(16,185,129,0.15); color: var(--accent2); border: 1px solid rgba(16,185,129,0.3); }
+  .grade-b { background: rgba(59,130,246,0.15); color: var(--accent); border: 1px solid rgba(59,130,246,0.3); }
+  .grade-c { background: rgba(245,158,11,0.15); color: var(--accent3); border: 1px solid rgba(245,158,11,0.3); }
+  .grade-d { background: rgba(239,68,68,0.15); color: var(--red); border: 1px solid rgba(239,68,68,0.3); }
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .section-label { font-size: 10px; font-family: var(--mono); text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 8px; }
+  .item { display: flex; gap: 8px; margin-bottom: 7px; align-items: flex-start; }
+  .item:last-child { margin-bottom: 0; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 6px; }
+  .dot-green { background: var(--accent2); }
+  .dot-red { background: var(--red); }
+  .item-text { font-size: 12px; color: #94a3b8; line-height: 1.5; }
+  .item-text strong { color: #fff; font-weight: 600; }
+  .divider { height: 1px; background: var(--border); margin: 14px 0; }
+  .summary-table { width: 100%; border-collapse: collapse; }
+  .summary-table th { font-family: var(--mono); font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); text-align: left; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .summary-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); font-size: 13px; }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table td:first-child { color: #fff; font-weight: 600; }
+  .summary-table td:nth-child(2) { font-family: var(--mono); }
+  .summary-table td:last-child { color: var(--muted); font-size: 12px; }
+  .bottom-card { background: rgba(59,130,246,0.08); border: 1px solid rgba(59,130,246,0.25); border-radius: 10px; padding: 18px; margin-top: 14px; }
+  .bottom-card h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .bottom-card p { font-size: 13px; color: #94a3b8; line-height: 1.6; }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <h1>YCharts GTM Evaluation</h1>
+    <p>Benchmarked against the 6-Stage Growth Loop Playbook · April 2026</p>
+  </div>
+  <div class="badge">CONFIDENTIAL</div>
+</header>
+
+<!-- Framework Bio -->
+<div class="card" style="margin-bottom:14px; border-color: rgba(59,130,246,0.3); background: rgba(59,130,246,0.05);">
+  <div style="font-size:11px; font-family:var(--mono); text-transform:uppercase; letter-spacing:1px; color:var(--accent); margin-bottom:12px;">About This Framework</div>
+  <p style="font-size:13px; color:#cbd5e1; line-height:1.8; margin-bottom:12px;">
+    This evaluation is built on the <strong style="color:#fff;">6-Stage Growth Loop</strong> — a GTM framework designed around one core principle: every stage, executed well, makes the next stage cheaper and more effective. The result is a compounding system where early investments in awareness reduce the cost of conversion, and retention fuels the top of the funnel.
+  </p>
+  <div style="display:grid; grid-template-columns: repeat(6, 1fr); gap:8px; margin-bottom:12px;">
+    <div style="background:var(--surface2); border-radius:6px; padding:8px; text-align:center;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent); margin-bottom:4px;">01</div>
+      <div style="font-size:11px; font-weight:600; color:#fff;">Generate Demand</div>
+    </div>
+    <div style="background:var(--surface2); border-radius:6px; padding:8px; text-align:center;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent); margin-bottom:4px;">02</div>
+      <div style="font-size:11px; font-weight:600; color:#fff;">Own the Signal</div>
+    </div>
+    <div style="background:var(--surface2); border-radius:6px; padding:8px; text-align:center;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent); margin-bottom:4px;">03</div>
+      <div style="font-size:11px; font-weight:600; color:#fff;">Stay in the Room</div>
+    </div>
+    <div style="background:var(--surface2); border-radius:6px; padding:8px; text-align:center;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent); margin-bottom:4px;">04</div>
+      <div style="font-size:11px; font-weight:600; color:#fff;">Earn the Trust</div>
+    </div>
+    <div style="background:var(--surface2); border-radius:6px; padding:8px; text-align:center;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent); margin-bottom:4px;">05</div>
+      <div style="font-size:11px; font-weight:600; color:#fff;">Score and Route</div>
+    </div>
+    <div style="background:var(--surface2); border-radius:6px; padding:8px; text-align:center;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent); margin-bottom:4px;">06</div>
+      <div style="font-size:11px; font-weight:600; color:#fff;">Land and Expand</div>
+    </div>
+  </div>
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;">
+    <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+      <div style="font-size:11px; font-weight:600; color:var(--accent2); margin-bottom:4px;">The Compounding Logic</div>
+      <div style="font-size:11px; color:var(--muted); line-height:1.5;">Cold outreach converts better when prospects already recognize the brand. Each stage makes the next one cheaper.</div>
+    </div>
+    <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+      <div style="font-size:11px; font-weight:600; color:var(--accent2); margin-bottom:4px;">The Signal Overlap</div>
+      <div style="font-size:11px; color:var(--muted); line-height:1.5;">Your paid audiences and your outbound lists overlap more than most people realize. Every engagement sharpens the next campaign.</div>
+    </div>
+    <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+      <div style="font-size:11px; font-weight:600; color:var(--accent2); margin-bottom:4px;">The Retention Loop</div>
+      <div style="font-size:11px; color:var(--muted); line-height:1.5;">Clients who stay become case studies. Case studies become your best top-of-funnel. Stage 6 feeds Stage 1.</div>
+    </div>
+  </div>
+</div>
+
+<!-- Stage 1 -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title-row">
+      <div>
+        <div class="stage-num">STAGE 01</div>
+        <div class="card-title">Generate Demand</div>
+        <div class="card-sub">Content, paid, outbound, partnerships. Where does your buyer actually spend time?</div>
+      </div>
+    </div>
+    <div class="grade grade-c">C+</div>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="section-label">What They Have</div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>LinkedIn Ads</strong> — primary paid channel, actively running campaigns</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Reddit</strong> — being built out, targeting retail traders and RIA decision makers</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Events and conferences</strong> — described as "wildly successful," expanding aggressively</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Google Display</strong> — minimal, keep-the-lights-on only</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Meta</strong> — small presence, high-level audience only</div></div>
+    </div>
+    <div>
+      <div class="section-label">Gaps</div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Brand awareness hasn't kept pace with how much the product has evolved</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Paid search deprioritized — Google AI cannibalizing page one, no clear replacement</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">No CTV currently active despite LinkedIn CTV being available and cost-effective</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">No LLM optimization strategy — buyers increasingly searching in AI tools, not Google</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Stage 2 -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title-row">
+      <div>
+        <div class="stage-num">STAGE 02</div>
+        <div class="card-title">Identify Who's Paying Attention</div>
+        <div class="card-sub">Lead magnets, forms, social engagement. If traffic doesn't turn into something you own, it disappears.</div>
+      </div>
+    </div>
+    <div class="grade grade-b">B</div>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="section-label">What They Have</div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Influ2</strong> — contact-level intent tracking across all networks, 800-person cohorts monthly. Shows exactly which individual saw your ad, clicked, engaged</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>HubSpot</strong> — tracks form fills, content downloads, event attendance</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>LinkedIn engagement signals</strong> — page followers, content engagement</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Demo request forms</strong> — primary conversion point on the website</div></div>
+    </div>
+    <div>
+      <div class="section-label">Gaps</div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">No pixel separation between enterprise and core wealth until 6 months ago — still being refined</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Enterprise landing page CTA sends buyers off the page, breaking the tracking chain</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">No secondary CTA for buyers not ready to request a demo — binary choice loses middle-funnel buyers</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Stage 3 -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title-row">
+      <div>
+        <div class="stage-num">STAGE 03</div>
+        <div class="card-title">Stay in the Room</div>
+        <div class="card-sub">SDR sequences, newsletter, community, events, retargeting. Most of your pipeline is already in the database.</div>
+      </div>
+    </div>
+    <div class="grade grade-c">C+</div>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="section-label">What They Have</div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>HubSpot email nurture</strong> — enterprise leads tracked for 12-month attribution window</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>LinkedIn retargeting</strong> — general retargeting running, recently split by vertical</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Events</strong> — webinars, conferences, in-person — strong and active channel</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Reddit</strong> — organic community engagement being built</div></div>
+    </div>
+    <div>
+      <div class="section-label">Gaps</div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">No objection-matched retargeting — general retargeting not connected to specific buyer objections</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">No enterprise-specific newsletter — Jerome's Asset Management Pulse was the closest thing</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Channels working in isolation — no cohesive narrative connecting awareness to nurture to conversion</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">This is the biggest single gap in the stack — the compounding loop breaks here</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Stage 4 -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title-row">
+      <div>
+        <div class="stage-num">STAGE 04</div>
+        <div class="card-title">Earn the Trust</div>
+        <div class="card-sub">Before the call gets booked, they've already read your case studies, watched your demo, used your free tool.</div>
+      </div>
+    </div>
+    <div class="grade grade-b">B-</div>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="section-label">What They Have</div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Case studies</strong> — Carson Group, Savant, BDF, Concurrent and many others</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Free 7-day trial</strong> — available on the website</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Video demos</strong> — YouTube channel with enterprise-specific content</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>T3 Survey</strong> — 5 Software All-Star Awards, 8.0+ satisfaction across 5 categories</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>125% net revenue retention</strong> and <strong>80% WAU/MAU ratio</strong> — powerful proof points</div></div>
+    </div>
+    <div>
+      <div class="section-label">Gaps</div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Case studies buried in navigation — not surfaced on the enterprise landing page where buying decisions happen</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">No short-form video on the enterprise landing page</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">60% cost vs. institutional platforms buried in body copy — a board-level number hidden from decision makers</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Testimonials are advisor-level — missing C-suite voices speaking to firm-wide impact</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Stage 5 -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title-row">
+      <div>
+        <div class="stage-num">STAGE 05</div>
+        <div class="card-title">Score and Route Automatically</div>
+        <div class="card-sub">High ICP fit goes to sales immediately. Low fit goes back to nurture. 90% shouldn't need a human in the loop.</div>
+      </div>
+    </div>
+    <div class="grade grade-b">B</div>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="section-label">What They Have</div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>HubSpot</strong> — scoring and routing infrastructure in place</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Influ2</strong> — feeds individual engagement signals directly to sales before outreach</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>12-month attribution window</strong> for enterprise leads — recently implemented</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Enterprise CS handoff</strong> — Molly's team manages expansion post-sale</div></div>
+    </div>
+    <div>
+      <div class="section-label">Gaps</div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Attribution framework actively being rebuilt — waiting for enterprise marketing hire to help shape it</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">No Clay equivalent for automated enrichment and ICP scoring</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Routing logic between enterprise and core wealth still being refined after pixel separation</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Stage 6 -->
+<div class="card">
+  <div class="card-header">
+    <div class="card-title-row">
+      <div>
+        <div class="stage-num">STAGE 06</div>
+        <div class="card-title">Land and Expand</div>
+        <div class="card-sub">Retention is underrated as a growth channel. Clients who stay become your case studies. Case studies become your best top-of-funnel.</div>
+      </div>
+    </div>
+    <div class="grade grade-a">A-</div>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="section-label">What They Have</div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Enterprise CS team</strong> — actively manages firm-wide adoption and expansion</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>8+ year average client lifetime</strong> — exceptional retention</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>125% net revenue retention</strong> — clients expand over time</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Co-marketing</strong> — Carson Group, Savant already producing joint content</div></div>
+      <div class="item"><div class="dot dot-green"></div><div class="item-text"><strong>Shared dashboards and model distribution</strong> — drives daily advisor usage and stickiness</div></div>
+    </div>
+    <div>
+      <div class="section-label">Gaps</div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Co-marketing is early stage — not yet converting retention into top-of-funnel proof assets at scale</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">M&A consolidation among RIA aggregators creates staggered adoption delays</div></div>
+      <div class="item"><div class="dot dot-red"></div><div class="item-text">Home office control objection limits advisor-level expansion at certain locked firms</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- Summary Table -->
+<div class="card">
+  <div style="font-size:11px; font-family:var(--mono); text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:14px;">Overall Scorecard</div>
+  <table class="summary-table">
+    <thead>
+      <tr>
+        <th>Stage</th>
+        <th>Grade</th>
+        <th>Biggest Gap</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1. Generate Demand</td>
+        <td style="color:var(--accent3);">C+</td>
+        <td>Brand awareness hasn't kept pace with product evolution</td>
+      </tr>
+      <tr>
+        <td>2. Identify Who's Paying Attention</td>
+        <td style="color:var(--accent);">B</td>
+        <td>Website conversion breaks the tracking chain</td>
+      </tr>
+      <tr>
+        <td>3. Stay in the Room</td>
+        <td style="color:var(--accent3);">C+</td>
+        <td>Channels not orchestrated into one cohesive narrative</td>
+      </tr>
+      <tr>
+        <td>4. Earn the Trust</td>
+        <td style="color:var(--accent);">B-</td>
+        <td>Proof assets exist but deployed in the wrong places</td>
+      </tr>
+      <tr>
+        <td>5. Score and Route</td>
+        <td style="color:var(--accent);">B</td>
+        <td>Attribution framework being rebuilt from scratch</td>
+      </tr>
+      <tr>
+        <td>6. Land and Expand</td>
+        <td style="color:var(--accent2);">A-</td>
+        <td>Retention not yet converting into top-of-funnel at scale</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Tool Recommendations -->
+<div class="card" style="margin-bottom:14px;">
+  <div style="font-size:11px; font-family:var(--mono); text-transform:uppercase; letter-spacing:1px; color:var(--muted); margin-bottom:14px;">Tool Recommendations — Closing the Biggest Gaps</div>
+
+  <!-- Stage 1 Tools -->
+  <div style="margin-bottom:16px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent3); background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); padding:2px 8px; border-radius:4px;">STAGE 01 · C+</div>
+      <div style="font-size:13px; font-weight:600; color:#fff;">Generate Demand — Brand Awareness Gap</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">LinkedIn CTV</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Serves video ads on streaming platforms to LinkedIn-matched audiences. Reaches CIOs and home office buyers while they're watching TV — not just while they're on LinkedIn. Cost-effective and already in LinkedIn's ad suite.</div>
+      </div>
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Metadata.io</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Automates paid campaign experimentation across LinkedIn, Facebook, and Google simultaneously. Finds the highest-converting audience and creative combinations faster than manual testing — ideal for a lean team running multiple channels.</div>
+      </div>
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Letterdrop</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Repurposes long-form content into LinkedIn posts, newsletters, and SEO articles automatically. Extends content reach without adding headcount — directly addresses the brand re-education gap Lauck flagged.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 3 Tools -->
+  <div style="margin-bottom:16px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent3); background:rgba(245,158,11,0.1); border:1px solid rgba(245,158,11,0.3); padding:2px 8px; border-radius:4px;">STAGE 03 · C+</div>
+      <div style="font-size:13px; font-weight:600; color:#fff;">Stay in the Room — Orchestration Gap</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Common Room</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Aggregates engagement signals from LinkedIn, Reddit, email, and events into one view. Shows which enterprise accounts are warming up across every channel simultaneously — closes the orchestration gap without replacing existing tools.</div>
+      </div>
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Factors.ai</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Connects anonymous website behavior to known accounts, surfaces which firms are engaging across touchpoints, and feeds that data into HubSpot. Fills the gap between Influ2's contact-level data and website engagement that currently goes untracked.</div>
+      </div>
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Kit (fka ConvertKit)</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Purpose-built for creator-style newsletters targeting professional audiences. An enterprise-specific newsletter — think Jerome's Asset Management Pulse, rebuilt with reach — keeps YCharts in the room between touchpoints without relying on paid media.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 4 Tools -->
+  <div style="margin-bottom:16px;">
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent); background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); padding:2px 8px; border-radius:4px;">STAGE 04 · B-</div>
+      <div style="font-size:13px; font-weight:600; color:#fff;">Earn the Trust — Proof Asset Deployment Gap</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Loom / Vidyard</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Short-form async video for sales enablement and personalized outreach. A 90-second Loom from Lauck's team referencing a prospect's specific firm situation — paired with a relevant case study — closes the trust gap faster than any email sequence.</div>
+      </div>
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Testimonial.to</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Collects and displays video testimonials from customers at scale. Directly addresses the C-suite testimonial gap — a CSO or CIO saying on video what the enterprise page needs to say is more powerful than any copywriter.</div>
+      </div>
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Mutiny</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Personalizes the enterprise landing page dynamically based on the visitor's firm, industry, or account — without engineering support. A broker-dealer sees compliance messaging. An RIA sees proposal generation messaging. One page, multiple value props.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stage 5 Tools -->
+  <div>
+    <div style="display:flex; align-items:center; gap:10px; margin-bottom:10px;">
+      <div style="font-family:var(--mono); font-size:10px; color:var(--accent); background:rgba(59,130,246,0.1); border:1px solid rgba(59,130,246,0.3); padding:2px 8px; border-radius:4px;">STAGE 05 · B</div>
+      <div style="font-size:13px; font-weight:600; color:#fff;">Score and Route — Attribution Gap</div>
+    </div>
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:8px;">
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Clay</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Enriches inbound leads automatically with firmographic data, intent signals, and ICP scoring — then routes them to HubSpot or Salesforce with context already attached. Removes the manual scoring step and ensures enterprise leads get to Lauck's team faster and better qualified.</div>
+      </div>
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Attributer</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">Captures UTM parameters and channel data on every form fill and passes it into HubSpot automatically. Solves the attribution rebuild problem at Stage 5 without engineering resources — immediately clarifies which campaigns are driving enterprise pipeline.</div>
+      </div>
+      <div style="background:var(--surface2); border-radius:6px; padding:10px 12px;">
+        <div style="font-size:12px; font-weight:600; color:var(--accent); margin-bottom:4px;">Dreamdata</div>
+        <div style="font-size:11px; color:var(--muted); line-height:1.5;">B2B revenue attribution platform that maps every marketing touchpoint across the full enterprise sales cycle — including the 12-month window YCharts uses for enterprise leads. Shows exactly which channels and campaigns influenced closed revenue, not just last-touch conversions.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Bottom Line -->
+<div class="bottom-card">
+  <h3>The One Thing That Ties It All Together</h3>
+  <p>Beau said it directly — they've done a great job standing up individual channels but the missing piece is gluing them into one cohesive enterprise story. That's the compounding logic from the playbook. Right now each stage is working but not feeding the next one efficiently. Stage 3 is the critical gap — without a cohesive nurture narrative connecting demand to conversion, the loop never compounds. That's the job. That's what Jerome built the foundation for and what the enterprise marketing hire would build on top of.</p>
+</div>
+
+</body>
+</html>
