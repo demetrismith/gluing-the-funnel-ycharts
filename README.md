@@ -1,0 +1,1 @@
+This evaluation is built on the 6-Stage Growth Loop — a GTM framework designed around one core principle: every stage, executed well, makes the next stage cheaper and more effective. The result is a compounding system where early investments in awareness reduce the cost of conversion, and retention fuels the top of the funnel.
